@@ -1,0 +1,32 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "RefreshCalendar",
+    "version": "1",
+    "x-amzn-alexa-access-scope": "public",
+    "x-amzn-display-details": {
+      "en-US": {
+        "title": "Refresh Calendar",
+        "description": "Run a quiet calendar refresh for Nudge reminders."
+      }
+    }
+  },
+  "paths": {
+    "/RefreshCalendar": {
+      "post": {
+        "operationId": "RefreshCalendar",
+        "responses": {
+          "200": {
+            "description": "When the calendar refresh completes successfully"
+          },
+          "403": {
+            "description": "When the task is missing required permissions or account linking"
+          },
+          "500": {
+            "description": "When the task can't complete because reminder or calendar services fail"
+          }
+        }
+      }
+    }
+  }
+}

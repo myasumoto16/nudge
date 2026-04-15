@@ -1,0 +1,124 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "nudge",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "SyncCalendarIntent",
+          "slots": [],
+          "samples": [
+            "sync my calendar",
+            "sync",
+            "check my calendar",
+            "set up reminders",
+            "what do I have today",
+            "schedule my reminders"
+          ]
+        },
+        {
+          "name": "QuickSyncIntent",
+          "slots": [],
+          "samples": [
+            "run quiet sync",
+            "quiet sync",
+            "run a quiet sync",
+            "refresh quietly",
+            "quietly sync my calendar",
+            "refresh my calendar quietly",
+            "run calendar refresh",
+            "run a calendar refresh",
+            "refresh my calendar"
+          ]
+        },
+        {
+          "name": "NextEventIntent",
+          "slots": [],
+          "samples": [
+            "what's next",
+            "what's my next event",
+            "what's coming up",
+            "what's on my calendar",
+            "tell me my next meeting"
+          ]
+        },
+        {
+          "name": "DisableIntent",
+          "slots": [],
+          "samples": [
+            "disable",
+            "stop reminders",
+            "pause reminders",
+            "cancel reminders",
+            "turn off reminders",
+            "disable reminders",
+            "stop",
+            "clear my reminders"
+          ]
+        },
+        {
+          "name": "DeleteDataIntent",
+          "slots": [],
+          "samples": [
+            "delete my data",
+            "delete my data",
+            "remove my data",
+            "forget my data",
+            "unlink my account",
+            "clear my account data"
+          ]
+        },
+        {
+          "name": "CalendarSelectIntent",
+          "slots": [
+            {
+              "name": "calendarType",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "samples": [
+            "use {calendarType} calendar",
+            "use {calendarType} calendars",
+            "use only my {calendarType} calendar",
+            "monitor {calendarType} calendars",
+            "switch to {calendarType} calendar",
+            "use all my calendars",
+            "use only my primary calendar",
+            "use all calendars"
+          ]
+        },
+        {
+          "name": "SetReminderWindowIntent",
+          "slots": [
+            {
+              "name": "minutes",
+              "type": "AMAZON.NUMBER"
+            }
+          ],
+          "samples": [
+            "remind me {minutes} minutes before",
+            "set reminders {minutes} minutes early",
+            "warn me {minutes} minutes ahead",
+            "notify me {minutes} minutes before events"
+          ]
+        }
+      ],
+      "types": []
+    }
+  }
+}

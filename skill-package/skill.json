@@ -1,0 +1,45 @@
+{
+  "manifest": {
+    "publishingInformation": {
+      "locales": {
+        "en-US": {
+          "name": "Nudge",
+          "summary": "Turns Google Calendar events into spoken Alexa reminders.",
+          "description": "Nudge links to your Google Calendar, creates spoken Alexa reminders for upcoming events, and keeps them updated when your calendar changes. After one-time setup, you can use an Echo routine to run a quiet calendar refresh automatically.",
+          "examplePhrases": [
+            "Alexa, open Nudge",
+            "Alexa, ask Nudge to sync my calendar",
+            "Alexa, ask Nudge to run quiet sync",
+            "Alexa, ask Nudge what's next"
+          ],
+          "keywords": ["calendar", "google", "reminder", "schedule"]
+        }
+      },
+      "isAvailableWorldwide": false,
+      "distributionCountries": ["US"],
+      "distributionMode": "PUBLIC",
+      "category": "CALENDARS_AND_REMINDERS",
+      "testingInstructions": "Enable the skill, link your Google account, then say 'Alexa, ask Nudge to sync my calendar'. For automatic refresh after setup, create an Echo routine that runs 'ask Nudge to run quiet sync'."
+    },
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "uri": "arn:aws:lambda:us-east-1:ACCOUNT_ID:function:AlexaAnnouncer"
+        },
+        "interfaces": [],
+        "tasks": [
+          {
+            "name": "RefreshCalendar",
+            "version": "1"
+          }
+        ]
+      }
+    },
+    "permissions": [
+      {
+        "name": "alexa::alerts:reminders:skill:readwrite"
+      }
+    ],
+    "manifestVersion": "1.0"
+  }
+}

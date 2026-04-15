@@ -1,0 +1,35 @@
+project: Nudge
+mode: vibe
+agent: auto
+ai_level: 1.0
+
+stack:
+  - node
+  - alexa-skills-kit
+  - aws-lambda
+  - dynamodb
+  - google-calendar-api
+
+commands:
+  build: npm --prefix lambda run build && npm --prefix lambda-calendar-sync run build && npm --prefix lambda-token-proxy run build
+  test: npm --prefix lambda test
+  lint: node --check lambda/src/index.js && node --check lambda-calendar-sync/src/index.js && node --check lambda-token-proxy/src/index.js && node --check lambda-poller/src/index.js
+  e2e: ""
+  deploy: ask deploy --target skill-metadata
+
+agents:
+  swe:
+    permissions: [read, write, test, build]
+    context: [CLAUDE.md, docs/architecture.md, docs/deployment-checklist.md]
+  reviewer:
+    permissions: [read]
+    context: [CLAUDE.md, docs/architecture.md]
+  test-engineer:
+    permissions: [read, write-tests, test]
+    context: [CLAUDE.md, docs/architecture.md, docs/deployment-checklist.md]
+  security:
+    permissions: [read, scan]
+    context: [CLAUDE.md, docs/privacy-policy.md, docs/support-page.md]
+
+board: BOARD.md
+default_flow: bugfix

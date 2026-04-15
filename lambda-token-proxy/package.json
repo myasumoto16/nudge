@@ -1,0 +1,13 @@
+{
+  "name": "nudge-token-proxy",
+  "version": "1.0.0",
+  "description": "OAuth token proxy — intercepts Alexa account linking to capture Google refresh token",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "zip -r ../token-proxy.zip . -x '*.zip' -x '.env' -x '*.md'"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.0.0",
+    "@aws-sdk/lib-dynamodb": "^3.0.0"
+  }
+}

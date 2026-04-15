@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Nudge icon</title>
+  <desc id="desc">Calendar tile with a voice cue mark for the Nudge Alexa skill.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#2a3441"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#dbe7f3"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" rx="96" fill="url(#bg)"/>
+
+  <rect x="136" y="128" width="236" height="280" rx="32" fill="url(#card)"/>
+  <rect x="136" y="128" width="236" height="60" rx="32" fill="#ef4444"/>
+  <rect x="174" y="106" width="24" height="54" rx="12" fill="#cbd5e1"/>
+  <rect x="310" y="106" width="24" height="54" rx="12" fill="#cbd5e1"/>
+
+  <rect x="170" y="228" width="60" height="22" rx="11" fill="#94a3b8"/>
+  <rect x="242" y="228" width="92" height="22" rx="11" fill="#94a3b8"/>
+  <rect x="170" y="276" width="112" height="22" rx="11" fill="#cbd5e1"/>
+  <rect x="170" y="324" width="136" height="22" rx="11" fill="#cbd5e1"/>
+
+  <rect x="328" y="294" width="12" height="34" rx="6" fill="#f59e0b"/>
+  <rect x="346" y="270" width="12" height="82" rx="6" fill="#fbbf24"/>
+  <rect x="364" y="248" width="12" height="126" rx="6" fill="#fcd34d"/>
+  <rect x="382" y="270" width="12" height="82" rx="6" fill="#fbbf24"/>
+  <rect x="400" y="294" width="12" height="34" rx="6" fill="#f59e0b"/>
+</svg>

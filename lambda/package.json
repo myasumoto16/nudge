@@ -1,0 +1,22 @@
+{
+  "name": "alexa-announcer-lambda",
+  "version": "1.0.0",
+  "description": "Lambda handler for Alexa Calendar Announcer skill",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "zip -r ../skill.zip . -x '*.zip' -x '.env' -x '*.md'",
+    "start": "node src/index.js",
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.0.0",
+    "@aws-sdk/client-lambda": "^3.0.0",
+    "@aws-sdk/lib-dynamodb": "^3.0.0",
+    "ask-sdk-core": "^2.14.0",
+    "ask-sdk-model": "^1.85.0",
+    "googleapis": "^144.0.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.0"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "nudge-poller-lambda",
+  "version": "1.0.0",
+  "description": "EventBridge poller — sends Proactive Events for upcoming calendar events",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "zip -r ../poller.zip . -x '*.zip' -x '.env' -x '*.md'"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.0.0",
+    "@aws-sdk/lib-dynamodb": "^3.0.0"
+  }
+}

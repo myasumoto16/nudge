@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1560" height="1080" viewBox="0 0 1560 1080" role="img" aria-labelledby="title desc">
+  <title id="title">Nudge architecture overview</title>
+  <desc id="desc">Visual overview of Google Calendar, AWS Lambda, DynamoDB, Alexa Reminders, Skill Messaging, and the Echo routine auto-refresh flow.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2f4f4f"/>
+    </marker>
+    <marker id="dashArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#607d8b"/>
+    </marker>
+    <style>
+      .bg { fill: #f7f9fb; }
+      .zone { fill: #ffffff; stroke: #c9d4df; stroke-width: 2; }
+      .zone-title { font: 700 22px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #263238; }
+      .box { fill: #ffffff; stroke: #607d8b; stroke-width: 2; rx: 8; ry: 8; }
+      .google { fill: #e8f5e9; stroke: #2e7d32; }
+      .aws { fill: #fff8e1; stroke: #b26a00; }
+      .alexa { fill: #e3f2fd; stroke: #1565c0; }
+      .store { fill: #f3e5f5; stroke: #6a1b9a; }
+      .optional { fill: #f5f5f5; stroke: #78909c; stroke-dasharray: 7 5; }
+      .title { font: 700 18px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #111827; }
+      .text { font: 15px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #263238; }
+      .small { font: 13px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #455a64; }
+      .edge { fill: none; stroke: #2f4f4f; stroke-width: 2.5; marker-end: url(#arrow); }
+      .dash { fill: none; stroke: #607d8b; stroke-width: 2.2; stroke-dasharray: 8 6; marker-end: url(#dashArrow); }
+      .label { font: 13px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #263238; }
+      .note { fill: #ffffff; stroke: #d7dee6; stroke-width: 1.3; rx: 5; ry: 5; }
+      .pill { fill: #263238; }
+      .pill-text { font: 700 13px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #ffffff; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1560" height="1080"/>
+
+  <text x="50" y="52" style="font: 800 34px system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #172026;">Nudge Architecture</text>
+  <text x="50" y="82" class="text">Voice-reminder-first design: sync creates spoken Alexa Reminders, and Google Calendar changes</text>
+  <text x="50" y="104" class="text">update or delete them automatically. An Echo routine can auto-run quiet sync after setup.</text>
+
+  <rect class="zone" x="40" y="145" width="320" height="805" rx="8"/>
+  <text class="zone-title" x="72" y="178">Google</text>
+
+  <rect class="zone" x="405" y="145" width="660" height="805" rx="8"/>
+  <text class="zone-title" x="437" y="178">AWS Backend</text>
+
+  <rect class="zone" x="1110" y="145" width="390" height="805" rx="8"/>
+  <text class="zone-title" x="1142" y="178">Alexa / Echo</text>
+
+  <rect class="box google" x="80" y="220" width="240" height="95"/>
+  <text class="title" x="105" y="255">Google OAuth</text>
+  <text class="small" x="105" y="282">Account linking</text>
+  <text class="small" x="105" y="304">Calendar read consent</text>
+
+  <rect class="box google" x="80" y="410" width="240" height="110"/>
+  <text class="title" x="105" y="445">Google Calendar API</text>
+  <text class="small" x="105" y="472">Events + incremental sync</text>
+  <text class="small" x="105" y="494">Push watch notifications</text>
+
+  <rect class="box aws" x="445" y="205" width="235" height="100"/>
+  <text class="title" x="470" y="240">API Gateway</text>
+  <text class="small" x="470" y="267">/token</text>
+  <text class="small" x="470" y="289">/google/calendar/webhook</text>
+
+  <rect class="box aws" x="760" y="205" width="245" height="100"/>
+  <text class="title" x="785" y="240">NudgeTokenProxy</text>
+  <text class="small" x="785" y="267">OAuth token exchange</text>
+  <text class="small" x="785" y="289">Stores refresh token</text>
+
+  <rect class="box aws" x="445" y="380" width="245" height="125"/>
+  <text class="title" x="470" y="415">NudgeCalendarSync</text>
+  <text class="small" x="470" y="442">Google webhook handler</text>
+  <text class="small" x="470" y="464">Incremental sync</text>
+  <text class="small" x="470" y="486">Sends Skill Messaging</text>
+
+  <rect class="box store" x="765" y="380" width="245" height="155"/>
+  <text class="title" x="790" y="415">DynamoDB</text>
+  <text class="small" x="790" y="442">USER# settings</text>
+  <text class="small" x="790" y="464">REMINDER# alertToken map</text>
+  <text class="small" x="790" y="486">WATCH# channel map</text>
+  <text class="small" x="790" y="508">CALENDAR# sync token</text>
+
+  <rect class="box aws" x="445" y="665" width="245" height="110"/>
+  <text class="title" x="470" y="700">EventBridge Scheduler</text>
+  <text class="small" x="470" y="727">Hourly reconciliation</text>
+  <text class="small" x="470" y="749">Watch renewal</text>
+
+  <rect class="box optional" x="765" y="665" width="245" height="110"/>
+  <text class="title" x="790" y="700">NudgePoller</text>
+  <text class="small" x="790" y="727">Optional backup</text>
+  <text class="small" x="790" y="749">Due-time notifications</text>
+
+  <rect class="box alexa" x="1165" y="205" width="255" height="120"/>
+  <text class="title" x="1190" y="240">AlexaAnnouncer</text>
+  <text class="small" x="1190" y="267">Intent handler</text>
+  <text class="small" x="1190" y="289">Messaging.MessageReceived</text>
+  <text class="small" x="1190" y="311">Creates and updates reminders</text>
+
+  <rect class="box alexa" x="1165" y="420" width="255" height="115"/>
+  <text class="title" x="1190" y="455">Alexa Reminders API</text>
+  <text class="small" x="1190" y="482">Real spoken reminders</text>
+  <text class="small" x="1190" y="504">Uses alertToken for updates</text>
+
+  <rect class="box alexa" x="1165" y="665" width="255" height="115"/>
+  <text class="title" x="1190" y="700">Echo Routine</text>
+  <text class="small" x="1190" y="727">Runs quiet sync command</text>
+  <text class="small" x="1190" y="749">Auto-refresh after setup</text>
+
+  <rect class="pill" x="1165" y="850" width="255" height="45" rx="8"/>
+  <text class="pill-text" x="1200" y="878">Echo speaks real Reminders</text>
+
+  <!-- Account linking lane -->
+  <path class="edge" d="M 320 268 L 445 268"/>
+  <rect class="note" x="340" y="230" width="90" height="24"/>
+  <text class="label" x="350" y="247">linking</text>
+
+  <path class="edge" d="M 680 255 L 760 255"/>
+  <rect class="note" x="700" y="218" width="48" height="24"/>
+  <text class="label" x="711" y="235">/token</text>
+
+  <path class="edge" d="M 1005 255 L 1165 255"/>
+  <rect class="note" x="1044" y="218" width="86" height="24"/>
+  <text class="label" x="1054" y="235">token stored</text>
+
+  <!-- Google Calendar webhook + incremental sync lanes -->
+  <path class="edge" d="M 320 442 L 445 442"/>
+  <rect class="note" x="335" y="404" width="98" height="24"/>
+  <text class="label" x="345" y="421">webhook</text>
+
+  <path class="edge" d="M 445 480 L 320 480"/>
+  <rect class="note" x="340" y="494" width="116" height="24"/>
+  <text class="label" x="350" y="511">incremental sync</text>
+
+  <!-- Calendar sync to DB lane -->
+  <path class="edge" d="M 690 445 L 765 445"/>
+  <rect class="note" x="704" y="407" width="84" height="24"/>
+  <text class="label" x="714" y="424">read/write</text>
+
+  <!-- Voice session + reminder creation lanes -->
+  <path class="edge" d="M 1165 282 L 1045 282 L 1045 585 L 887 585 L 887 535"/>
+  <rect class="note" x="905" y="558" width="152" height="24"/>
+  <text class="label" x="915" y="575">store alertTokens</text>
+
+  <path class="edge" d="M 1292 325 L 1292 420"/>
+  <rect class="note" x="1310" y="365" width="98" height="24"/>
+  <text class="label" x="1320" y="382">Reminders</text>
+
+  <path class="edge" d="M 1420 722 L 1495 722 L 1495 265 L 1420 265"/>
+  <rect class="note" x="1438" y="478" width="74" height="24"/>
+  <text class="label" x="1448" y="495">quiet sync</text>
+
+  <path class="edge" d="M 1365 535 L 1455 535 L 1455 872 L 1420 872"/>
+
+  <!-- Skill Messaging lane, routed above blocks to avoid overlap -->
+  <path class="edge" d="M 690 410 L 735 410 L 735 350 L 1090 350 L 1090 265 L 1165 265"/>
+  <rect class="note" x="790" y="312" width="290" height="24"/>
+  <text class="label" x="810" y="329">Skill Messaging: update/delete by alertToken</text>
+
+  <!-- EventBridge lane -->
+  <path class="edge" d="M 567 665 L 567 505"/>
+  <rect class="note" x="585" y="588" width="54" height="24"/>
+  <text class="label" x="596" y="605">hourly</text>
+
+  <!-- Optional poller lane, routed below blocks -->
+  <path class="dash" d="M 1010 720 L 1085 720 L 1085 820 L 1292 820 L 1292 780"/>
+  <rect class="note" x="910" y="815" width="232" height="24"/>
+  <text class="label" x="920" y="832">optional due-time notifications</text>
+
+  <text x="55" y="990" class="small">CloudWatch control: keep poller disabled unless testing backup flows, set log retention to 7-14 days,</text>
+  <text x="55" y="1012" class="small">and log state transitions instead of unchanged events.</text>
+</svg>

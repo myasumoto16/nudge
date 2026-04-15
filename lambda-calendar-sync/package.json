@@ -1,0 +1,13 @@
+{
+  "name": "nudge-calendar-sync",
+  "version": "1.0.0",
+  "description": "Google Calendar watch/webhook/incremental sync Lambda",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "zip -r ../calendar-sync.zip . -x '*.zip' -x '.env' -x '*.md'"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.0.0",
+    "@aws-sdk/lib-dynamodb": "^3.0.0"
+  }
+}
