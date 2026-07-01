@@ -68,6 +68,33 @@ After that:
 - changed events update existing reminders automatically
 - deleted or silenced events remove existing reminders automatically
 
+## Personal Extension: 1-Minute Auto-Trigger
+
+For continuous personal use I layered a decoupled webhook pipeline on top of the
+standard routine so quiet sync fires every 60 seconds without any local runtime:
+
+```text
+Google Apps Script (60-second time-driven cron)
+  ──(HTTPS GET)──> Voice Monkey REST API
+  ──(virtual sensor state change)──> Alexa smart home event
+  ──> Echo routine fires "ask nudge to run quiet sync"
+```
+
+- **Google Apps Script** runs `UrlFetchApp.fetch()` on a 1-minute Time-driven
+  trigger. Google's infrastructure acts as the cron daemon — the loop keeps
+  running even when the local machine is off.
+- **Voice Monkey** receives the authenticated GET request and toggles a virtual
+  contact sensor (One Minute Timer) registered as an Alexa smart home device.
+- **Alexa** detects the sensor state change and fires the Echo routine
+  immediately, bypassing native routine throttle limits.
+- **Security**: the webhook is one-way HTTP GET only. Voice Monkey cannot query
+  local devices, camera streams, or credentials — it can only toggle the virtual
+  switch.
+- **Rate limit**: comfortably within Voice Monkey's free-tier cap of ~4 parallel
+  requests per minute.
+
+This is a personal setup and is not part of the standard user flow.
+
 ## Features
 
 - Spoken Echo reminders from Google Calendar events
