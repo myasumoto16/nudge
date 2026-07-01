@@ -31,13 +31,20 @@ brand-new event later
 
 The important Alexa constraint is:
 
-- new reminders must be created during an active skill session
-- existing reminders can be updated/deleted later if we store `alertToken`
+- **New reminders can only be created during an active skill session.** The
+  Alexa Reminders API rejects reminder creation requests that originate from a
+  background Lambda (e.g. a Google Calendar webhook handler) because no live
+  user session is present. This is an intentional Amazon security boundary —
+  a skill cannot silently push a new spoken reminder to a user's device without
+  the user being in session.
+- Existing reminders can be updated or deleted out-of-session using the stored
+  `alertToken`, so calendar changes are handled automatically by background Skill
+  Messaging.
 
 That is why Nudge uses both:
 
-- active sync for creation
-- background Skill Messaging for maintenance
+- active sync (manual or Echo routine) for creation
+- background Skill Messaging for maintenance of existing reminders
 
 ## Recommended User Flow
 
